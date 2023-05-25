@@ -1,13 +1,12 @@
 package ueb7;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SList<T extends Comparable<T>> extends List<T> {
 	private ListItem<T> head;
 
 	public SList() {
-		head = new ListItem<T>(null, null);
+		head = null;
 	}
 
 	public ListItem<T> searchElement(T key) {
@@ -24,6 +23,7 @@ public class SList<T extends Comparable<T>> extends List<T> {
 	public void clear() { head.next = null;}
 	
 	public void append(T el) {
+		if (head != null) head = new ListItem<T>(el, null);
 		ListItem<T> crt = head;
 		while (crt != null) {
 			if (crt.next == null) {
@@ -32,10 +32,10 @@ public class SList<T extends Comparable<T>> extends List<T> {
 			}
 			crt = crt.next;
 		}
-		crt.next = new ListItem<T>(el, null);
 	}
 	
 	public void deleteLast() {
+		if (head == null) return;
 		ListItem<T> crt = head;
 		while (crt.next != null) {
 			if (crt.next.next == null) { 
@@ -46,9 +46,24 @@ public class SList<T extends Comparable<T>> extends List<T> {
 		}
 	}
 	
-	public void insert(T el, int pos) {}
+	public void insert(T el, int pos) {
+		if (head == null) return;
+		if (pos < 0) throw new IndexOutOfBoundsException();
+		int count = 0;
+		ListItem<T> crt = head;
+		while (crt.next != null) {
+			if (count == pos) {
+				crt.next = new ListItem<T>(el, crt.next);
+				return;
+			}
+			count++;
+			crt = crt.next;
+		}
+		throw new IndexOutOfBoundsException();
+	}
 	
 	public void delete(int pos) {
+		if (head == null) return;
 		if (pos < 0) throw new IndexOutOfBoundsException();
 		int count = 0;
 		ListItem<T> crt = head;
@@ -80,7 +95,7 @@ public class SList<T extends Comparable<T>> extends List<T> {
 	public T get(int pos) {
 		if (pos < 0) throw new IndexOutOfBoundsException();
 		int count = 0;
-		ListItem<T> crt = head;
+		ListItem<T> crt = head.next;
 		while (crt.next != null) {
 			if (count == pos) return crt.data;
 			count++;
@@ -101,7 +116,7 @@ public class SList<T extends Comparable<T>> extends List<T> {
 	
 	public String toString() {
 		ArrayList<T> arr = new ArrayList<T>();
-		ListItem<T> crt = head;
+		ListItem<T> crt = head.next;
 		while (crt.next != null) {
 			arr.add(crt.data);
 			crt = crt.next;

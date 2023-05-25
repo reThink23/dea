@@ -75,8 +75,12 @@ public class ListTest {
 						System.out.println("Usage: g <pos>");
 						break;
 					} else {
-						int pos = Integer.parseInt(split[1]);
-						System.out.println(list.get(pos));
+						try {
+							int pos = Integer.parseInt(split[1]);
+							System.out.println(list.get(pos));
+						} catch (IndexOutOfBoundsException e) {
+							System.out.println("<pos> out of bounds");
+						}
 					}
 					break;
 				case 'p':
