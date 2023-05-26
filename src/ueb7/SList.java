@@ -3,40 +3,45 @@ package ueb7;
 import java.util.ArrayList;
 
 public class SList<T extends Comparable<T>> extends List<T> {
-	private ListItem<T> head;
+	private SListItem<T> head;
 
 	public SList() {
 		head = null;
 	}
 
-	public ListItem<T> searchElement(T key) {
-		// returns first ListItem which contains key as its data
+	public SListItem<T> searchElement(T key) {
+		// returns first SListItem which contains key as its data
 		// member if key is in the list, and returns null otherwise
-		ListItem<T> current = head;
+		SListItem<T> current = head;
 		while (current != null && current.data.compareTo(key) != 0)
 			current = current.next;
 		return current;
 	}
 
-	public boolean empty() {return head.next == null;};
+	public boolean empty() {return head == null;};
 	
-	public void clear() { head.next = null;}
+	public void clear() { head = null;}
 	
 	public void append(T el) {
-		if (head != null) head = new ListItem<T>(el, null);
-		ListItem<T> crt = head;
+		if (empty()) {head = new SListItem<T>(el, null); return;}
+		SListItem<T> crt = head;
 		while (crt != null) {
 			if (crt.next == null) {
-				crt.next = new ListItem<T>(el, null);
+				crt.next = new SListItem<T>(el, null);
 				return;
 			}
 			crt = crt.next;
 		}
 	}
+
+	public void prepend(T el) {
+		if (empty()) {head = new SListItem<T>(el, null); return;}
+		head = new SListItem<T>(el, head);
+	}
 	
 	public void deleteLast() {
-		if (head == null) return;
-		ListItem<T> crt = head;
+		if (empty()) return;
+		SListItem<T> crt = head;
 		while (crt.next != null) {
 			if (crt.next.next == null) { 
 				crt.next = null; 
@@ -45,15 +50,24 @@ public class SList<T extends Comparable<T>> extends List<T> {
 			crt = crt.next;
 		}
 	}
+
+	public void deleteFirst() {
+		if (empty()) return;
+		head = head.next;
+	}
 	
 	public void insert(T el, int pos) {
-		if (head == null) return;
+		if (empty()) return;
 		if (pos < 0) throw new IndexOutOfBoundsException();
+		if (pos == 0) {
+			prepend(el);
+			return;
+		}
 		int count = 0;
-		ListItem<T> crt = head;
+		SListItem<T> crt = head;
 		while (crt.next != null) {
-			if (count == pos) {
-				crt.next = new ListItem<T>(el, crt.next);
+			if (count == pos-1) {
+				crt.next = new SListItem<T>(el, crt.next);
 				return;
 			}
 			count++;
@@ -63,12 +77,16 @@ public class SList<T extends Comparable<T>> extends List<T> {
 	}
 	
 	public void delete(int pos) {
-		if (head == null) return;
+		if (empty()) return;
 		if (pos < 0) throw new IndexOutOfBoundsException();
+		if (pos == 0) {
+			deleteFirst();
+			return;
+		}
 		int count = 0;
-		ListItem<T> crt = head;
+		SListItem<T> crt = head;
 		while (crt.next != null) {
-			if (count == pos) {
+			if (count == pos-1) {
 				crt.next = crt.next.next;
 				return;
 			}
@@ -79,9 +97,10 @@ public class SList<T extends Comparable<T>> extends List<T> {
 	}
 
 	public void reverse() {
-		ListItem<T> crt = head;
-		ListItem<T> prev = null;
-		ListItem<T> next = null;
+		if (empty()) return;
+		SListItem<T> crt = head;
+		SListItem<T> prev = null;
+		SListItem<T> next = null;
 		while (crt.next != null) {
 			next = crt.next;
 			crt.next = prev;
@@ -93,10 +112,11 @@ public class SList<T extends Comparable<T>> extends List<T> {
 	}
 	
 	public T get(int pos) {
+		if (empty()) return null;
 		if (pos < 0) throw new IndexOutOfBoundsException();
 		int count = 0;
-		ListItem<T> crt = head.next;
-		while (crt.next != null) {
+		SListItem<T> crt = head;
+		while (crt != null) {
 			if (count == pos) return crt.data;
 			count++;
 			crt = crt.next;
@@ -105,9 +125,10 @@ public class SList<T extends Comparable<T>> extends List<T> {
 	}
 	
 	public int size() {
+		if (empty()) return 0;
 		int size = 0;
-		ListItem<T> crt = head;
-		while (crt.next != null) {
+		SListItem<T> crt = head;
+		while (crt != null) {
 			size++;
 			crt = crt.next;
 		}
@@ -116,8 +137,8 @@ public class SList<T extends Comparable<T>> extends List<T> {
 	
 	public String toString() {
 		ArrayList<T> arr = new ArrayList<T>();
-		ListItem<T> crt = head.next;
-		while (crt.next != null) {
+		SListItem<T> crt = head;
+		while (crt != null) {
 			arr.add(crt.data);
 			crt = crt.next;
 		}

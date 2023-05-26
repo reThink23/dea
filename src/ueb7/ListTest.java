@@ -15,7 +15,7 @@ public class ListTest {
 		char listType = line.charAt(0);
 		if (listType != 's' && listType != 'd') {
 			System.out.println("Unknown list type");
-			return;
+			// return;
 		} else if (listType == 's') {
 			list = new SList<>();
 		}
@@ -31,46 +31,69 @@ public class ListTest {
 			char firstChar = split[0].charAt(0);
 			switch (firstChar) {
 				case 'a':
-					if (split.length < 1) {
+					if (split.length < 2) {
 						System.out.println("Missing argument");
-						System.out.println("Usage: a <value>");
+						System.out.println("Usage: a <value> [<value> ...]");
 						break;
 					} else {
-						int value = Integer.parseInt(split[1]);
-						list.append(value);
-						System.out.println("Added " + value);
+						try {
+							for (int i = 1; i < split.length; i++) {
+							int value = Integer.parseInt(split[i]);
+							list.append(value);
+							}
+							// int value = Integer.parseInt(split[1]);
+							// list.append(value);
+							// System.out.println("Added " + value);
+							System.out.println("-> " + list);
+						} catch (NumberFormatException e) {
+							System.out.println("<value> is not a number");
+						}
 					}
 					break;
 				case 'i':
-					if (split.length < 2) {
+					if (split.length < 3) {
 						System.out.println("Missing argument");
 						System.out.println("Usage: i <value> <pos>");
 						break;
 					} else {
-						int value = Integer.parseInt(split[1]);
-						int pos = Integer.parseInt(split[2]);
-						list.insert(value, pos);
-						System.out.println("Inserted " + value + " at position " + pos);
+						try {
+							int value = Integer.parseInt(split[1]);
+							int pos = Integer.parseInt(split[2]);
+							list.insert(value, pos);
+							// System.out.println("Inserted " + value + " at position " + pos);
+							System.out.println("-> " + list);
+						} catch (IndexOutOfBoundsException e) {
+							System.out.println("<pos> out of bounds");
+						} catch (NumberFormatException e) {
+							System.out.println("<value> or <pos> is not a number");
+						}
 					}
 					break;
 				case 'd':
 					// delete
-					if (split.length < 1) {
+					if (split.length < 2) {
 						System.out.println("Missing argument");
 						System.out.println("Usage: d <pos>");
 						break;
 					} else {
-						int pos = Integer.parseInt(split[1]);
-						list.delete(pos);
-						System.out.println("Deleted element at position " + pos);
+						try {
+							int pos = Integer.parseInt(split[1]);
+							list.delete(pos);
+							// System.out.println("Deleted element at position " + pos);
+							System.out.println("-> " + list);
+						} catch (IndexOutOfBoundsException e) {
+							System.out.println("<pos> out of bounds");
+						} catch (NumberFormatException e) {
+							System.out.println("<pos> is not a number");
+						}
 					}
 					break;
 				case 's': System.out.println(list.size()); break;
-				case 'c': list.clear(); break;
-				case 'r': list.reverse(); break;
+				case 'c': list.clear(); System.out.println("-> " + list); break;
+				case 'r': list.reverse(); System.out.println("-> " + list); break;
 				case 'g':
 					// get
-					if (split.length < 1) {
+					if (split.length < 2) {
 						System.out.println("Missing argument");
 						System.out.println("Usage: g <pos>");
 						break;
@@ -80,6 +103,8 @@ public class ListTest {
 							System.out.println(list.get(pos));
 						} catch (IndexOutOfBoundsException e) {
 							System.out.println("<pos> out of bounds");
+						} catch (NumberFormatException e) {
+							System.out.println("<pos> is not a number");
 						}
 					}
 					break;
