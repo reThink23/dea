@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class DList<T extends Comparable<T>> extends List<T> {
 	private DListItem<T> head;
+	private DListItem<T> tail;
 
 	public DList() {
 		head = null;
@@ -24,11 +25,13 @@ public class DList<T extends Comparable<T>> extends List<T> {
 
 	public void clear() {
 		head = null;
+		tail = null;
 	}
 
 	public void append(T el) {
 		if (empty()) {
 			head = new DListItem<T>(el, null, null);
+			tail = head;
 			return;
 		}
 		DListItem<T> crt = head;
@@ -50,29 +53,19 @@ public class DList<T extends Comparable<T>> extends List<T> {
 	}
 
 	public void deleteLast() {
-		if (empty())
-			return;
-		DListItem<T> crt = head;
-		while (crt.next != null) {
-			if (crt.next.next == null) {
-				crt.next = null;
-				return;
-			}
-			crt = crt.next;
-		}
+		if (empty()) return;
+		tail.prev.next = null;
+		tail = tail.prev;
 	}
 
 	public void deleteFirst() {
-		if (empty())
-			return;
+		if (empty()) return;
 		head = head.next;
 	}
 
 	public void insert(T el, int pos) {
-		if (empty())
-			return;
-		if (pos < 0)
-			throw new IndexOutOfBoundsException();
+		if (empty()) return;
+		if (pos < 0) throw new IndexOutOfBoundsException();
 		if (pos == 0) {
 			prepend(el);
 			return;
@@ -91,10 +84,8 @@ public class DList<T extends Comparable<T>> extends List<T> {
 	}
 
 	public void delete(int pos) {
-		if (empty())
-			return;
-		if (pos < 0)
-			throw new IndexOutOfBoundsException();
+		if (empty()) return;
+		if (pos < 0) throw new IndexOutOfBoundsException();
 		if (pos == 0) {
 			deleteFirst();
 			return;
@@ -113,6 +104,8 @@ public class DList<T extends Comparable<T>> extends List<T> {
 	}
 
 	public void reverse() {
+		if (empty()) return;
+
 		if (empty())
 			return;
 		DListItem<T> crt = head;
@@ -129,10 +122,9 @@ public class DList<T extends Comparable<T>> extends List<T> {
 	}
 
 	public T get(int pos) {
-		if (empty())
-			return null;
-		if (pos < 0)
-			throw new IndexOutOfBoundsException();
+		if (empty()) return null;
+		if (pos < 0) throw new IndexOutOfBoundsException();
+
 		int count = 0;
 		DListItem<T> crt = head;
 		while (crt != null) {
@@ -145,8 +137,7 @@ public class DList<T extends Comparable<T>> extends List<T> {
 	}
 
 	public int size() {
-		if (empty())
-			return 0;
+		if (empty()) return 0;
 		int size = 0;
 		DListItem<T> crt = head;
 		while (crt != null) {

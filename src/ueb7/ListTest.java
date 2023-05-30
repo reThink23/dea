@@ -18,10 +18,9 @@ public class ListTest {
 			// return;
 		} else if (listType == 's') {
 			list = new SList<>();
+		} else {
+			list = new DList<>();
 		}
-		// } else {
-		// 	list = new DList<>();
-		// }
 		
 		System.out.println("Enter command:");
 
@@ -38,8 +37,8 @@ public class ListTest {
 					} else {
 						try {
 							for (int i = 1; i < split.length; i++) {
-							int value = Integer.parseInt(split[i]);
-							list.append(value);
+								int value = Integer.parseInt(split[i]);
+								list.append(value);
 							}
 							// int value = Integer.parseInt(split[1]);
 							// list.append(value);
