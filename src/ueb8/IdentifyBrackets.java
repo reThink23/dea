@@ -24,13 +24,13 @@ public class IdentifyBrackets {
 		return lines;
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IllegalArgumentException, IOException {
 		if (args.length < 1)
-			throw new Exception("Argument is missing");
+			throw new IllegalArgumentException("Argument is missing");
 
 		String[] lines = readLines(args[0]);
 		if (lines.length == 0)
-			throw new Exception("File " + args[0] + " doesn't contain anything to read");
+			throw new IllegalArgumentException("File " + args[0] + " doesn't contain anything to read");
 
 		Stack<Bracket> stack = new Stack<Bracket>();
 		for (int i = 0; i < lines.length; i++) {
@@ -43,14 +43,17 @@ public class IdentifyBrackets {
 						System.out.println("Error: " + c + " at line " + (i + 1) + " column " + (j + 1));
 						return;
 					} else {
-						char top = stack.top().getChar();
+						char top = stack.top().getBracket();
 						if (c == ')' && top != '(' || c == ']' && top != '[' || c == '}' && top != '{') {
-							System.out.println("Error: " + c + " at line " + (i + 1) + " column " + (j + 1));
+							System.out.println(
+								"Error at line " + (i + 1) + " column " + (j + 1) + ": Reading '" + 
+								c + "' but expecting '" + stack.top().getMatchingBracket()  + "' because of " + stack.top()
+							);
 							return;
 						} else {
-							Tuple<Bracket,Bracket> bracketPair = new Tuple<Bracket,Bracket>(stack.top(), new Bracket(i+1, j+1, top));
+							Tuple<Bracket,Bracket> bracketPair = new Tuple<Bracket,Bracket>(stack.top(), new Bracket(i+1, j+1, c));
 							stack.pop();
-							System.out.println("Matching brackets: " + "'" + bracketPair.getFirst().getChar() + "' at line " + bracketPair.getFirst().getLine() + ", column " + bracketPair.getFirst().getColumn() + " and " + "'" + bracketPair.getSecond().getChar() + "' at line " + bracketPair.getSecond().getLine() + ", column " + bracketPair.getSecond().getColumn());
+							System.out.println("Matching brackets: " + bracketPair.getFirst() + " and " + bracketPair.getSecond());
 						}
 					}
 				}

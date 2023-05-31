@@ -4,6 +4,7 @@ public class Bracket implements Comparable<Bracket> {
 	
 	private int line;
 	private int column;
+	private char bracket;
 	private Type type;
 
 	public static enum Type { ROUND_OPEN, SQUARE_OPEN, CURLY_OPEN, ROUND_CLOSE, SQUARE_CLOSE, CURLY_CLOSE}
@@ -12,11 +13,21 @@ public class Bracket implements Comparable<Bracket> {
 		this.line = line;
 		this.column = column;
 		this.type = type;
+		switch (type) {
+			case ROUND_OPEN: this.bracket = '('; break;
+			case SQUARE_OPEN: this.bracket = '['; break;
+			case CURLY_OPEN: this.bracket = '{'; break;
+			case ROUND_CLOSE: this.bracket = ')'; break;
+			case SQUARE_CLOSE: this.bracket = ']'; break;
+			case CURLY_CLOSE: this.bracket = '}'; break;
+			default: throw new IllegalArgumentException("Unknown bracket type: " + type);
+		}
 	}
 
 	public Bracket(int line, int column, char bracket) {
 		this.line = line;
 		this.column = column;
+		this.bracket = bracket;
 		switch (bracket) {
 			case '(': this.type = Type.ROUND_OPEN; break;
 			case '[': this.type = Type.SQUARE_OPEN; break;
@@ -30,6 +41,7 @@ public class Bracket implements Comparable<Bracket> {
 
 	public int getLine() { return line; }
 	public int getColumn() { return column; }
+	public char getBracket() { return bracket; }
 	public Type getType() { return type; }
 	public char getChar() {
 		switch (type) {
@@ -43,6 +55,18 @@ public class Bracket implements Comparable<Bracket> {
 		}
 	}
 
+	public char getMatchingBracket() {
+		switch (bracket) {
+			case '(': return ')';
+			case '[': return ']';
+			case '{': return '}';
+			case ')': return '(';
+			case ']': return '[';
+			case '}': return '{';
+			default: throw new IllegalArgumentException("Unknown bracket type: " + bracket);
+		}
+	}
+
 	public int compareTo(Bracket other) {
 		if (this.line < other.line) return -1;
 		if (this.line > other.line) return 1;
@@ -52,6 +76,6 @@ public class Bracket implements Comparable<Bracket> {
 	}
 
 	public String toString() {
-		return "Bracket(" + line + ", " + column + ", " + type + ")";
+		return "'" + bracket + "' at line " + line + ", column " + column;
 	}
 }
