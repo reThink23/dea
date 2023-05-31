@@ -2,7 +2,7 @@ package ueb7;
 
 import java.util.ArrayList;
 
-public class SList<T extends Comparable<T>> extends List<T> {
+public class SList<T extends Comparable<T>> implements IList<T> {
 	private SListItem<T> head;
 
 	public SList() {
@@ -58,7 +58,7 @@ public class SList<T extends Comparable<T>> extends List<T> {
 	
 	public void insert(T el, int pos) {
 		if (empty()) return;
-		if (pos < 0) throw new IndexOutOfBoundsException();
+		if (pos < 0) throw new IndexOutOfBoundsException("pos is negative");
 		if (pos == 0) {
 			prepend(el);
 			return;
@@ -73,12 +73,12 @@ public class SList<T extends Comparable<T>> extends List<T> {
 			count++;
 			crt = crt.next;
 		}
-		throw new IndexOutOfBoundsException();
+		throw new IndexOutOfBoundsException("pos is greater than list size (" + count + ")");
 	}
 	
 	public void delete(int pos) {
 		if (empty()) return;
-		if (pos < 0) throw new IndexOutOfBoundsException();
+		if (pos < 0) throw new IndexOutOfBoundsException("pos is negative");
 		if (pos == 0) {
 			deleteFirst();
 			return;
@@ -93,7 +93,7 @@ public class SList<T extends Comparable<T>> extends List<T> {
 			count++;
 			crt = crt.next;
 		}
-		throw new IndexOutOfBoundsException();
+		throw new IndexOutOfBoundsException("pos is greater than list size (" + count + ")");
 	}
 
 	public void reverse() {
@@ -113,7 +113,7 @@ public class SList<T extends Comparable<T>> extends List<T> {
 	
 	public T get(int pos) {
 		if (empty()) return null;
-		if (pos < 0) throw new IndexOutOfBoundsException();
+		if (pos < 0) throw new IndexOutOfBoundsException("pos is negative");
 		int count = 0;
 		SListItem<T> crt = head;
 		while (crt != null) {
@@ -121,7 +121,7 @@ public class SList<T extends Comparable<T>> extends List<T> {
 			count++;
 			crt = crt.next;
 		}
-		throw new IndexOutOfBoundsException();
+		throw new IndexOutOfBoundsException("pos is greater than list size (" + count + ")");
 	}
 	
 	public int size() {

@@ -3,11 +3,12 @@ package ueb7;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 public class ListTest {
 	public static void main(String[] args) throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		List<Integer> list = null;
+		IList<Integer> list = null;
 		
 		System.out.println("Single linked list (s) or double linked list (d)?");
 		String line = bf.readLine();
@@ -21,12 +22,17 @@ public class ListTest {
 		} else {
 			list = new DList<>();
 		}
+
+		for (int i = 0; i < 6; i++) {
+			int r = new Random().nextInt(100);
+			list.append(r);
+		}
 		
 		System.out.println("Enter command:");
 
 		while (line != null) {
 			line = bf.readLine();
-			String[] split = line.split(" ");
+			String[] split = line.trim().split(" ");
 			char firstChar = split[0].charAt(0);
 			switch (firstChar) {
 				case 'a':
@@ -35,18 +41,17 @@ public class ListTest {
 						System.out.println("Usage: a <value> [<value> ...]");
 						break;
 					} else {
-						try {
-							for (int i = 1; i < split.length; i++) {
+						boolean isAdded = false;
+						for (int i = 1; i < split.length; i++) {
+							try {
 								int value = Integer.parseInt(split[i]);
 								list.append(value);
+								isAdded = true;
+							} catch (NumberFormatException e) {
+								System.out.println("<value"+ i +"> is not a number");
 							}
-							// int value = Integer.parseInt(split[1]);
-							// list.append(value);
-							// System.out.println("Added " + value);
-							System.out.println("-> " + list);
-						} catch (NumberFormatException e) {
-							System.out.println("<value> is not a number");
 						}
+						if (isAdded) System.out.println("-> " + list);
 					}
 					break;
 				case 'i':
@@ -59,7 +64,6 @@ public class ListTest {
 							int value = Integer.parseInt(split[1]);
 							int pos = Integer.parseInt(split[2]);
 							list.insert(value, pos);
-							// System.out.println("Inserted " + value + " at position " + pos);
 							System.out.println("-> " + list);
 						} catch (IndexOutOfBoundsException e) {
 							System.out.println("<pos> out of bounds");
@@ -115,7 +119,7 @@ public class ListTest {
 					// exit
 					return;
 				default:
-					System.out.println("Unknown command");
+					System.out.println("Unknown command " + split[0]);
 			}
 		}
 		bf.close();

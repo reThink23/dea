@@ -2,7 +2,7 @@ package ueb7;
 
 import java.util.ArrayList;
 
-public class DList<T extends Comparable<T>> extends List<T> {
+public class DList<T extends Comparable<T>> implements IList<T> {
 	private DListItem<T> head;
 	private DListItem<T> tail;
 
@@ -34,14 +34,8 @@ public class DList<T extends Comparable<T>> extends List<T> {
 			tail = head;
 			return;
 		}
-		DListItem<T> crt = head;
-		while (crt != null) {
-			if (crt.next == null) {
-				crt.next = new DListItem<T>(el, null, crt);
-				return;
-			}
-			crt = crt.next;
-		}
+		tail.next = new DListItem<T>(el, null, tail);
+		tail = tail.next;
 	}
 
 	public void prepend(T el) {
@@ -65,7 +59,7 @@ public class DList<T extends Comparable<T>> extends List<T> {
 
 	public void insert(T el, int pos) {
 		if (empty()) return;
-		if (pos < 0) throw new IndexOutOfBoundsException();
+		if (pos < 0) throw new IndexOutOfBoundsException("<pos> is negative");
 		if (pos == 0) {
 			prepend(el);
 			return;
@@ -80,12 +74,12 @@ public class DList<T extends Comparable<T>> extends List<T> {
 			count++;
 			crt = crt.next;
 		}
-		throw new IndexOutOfBoundsException();
+		throw new IndexOutOfBoundsException("<pos> is greater than list size (" + count + ")");
 	}
 
 	public void delete(int pos) {
 		if (empty()) return;
-		if (pos < 0) throw new IndexOutOfBoundsException();
+		if (pos < 0) throw new IndexOutOfBoundsException("<pos> is negative");
 		if (pos == 0) {
 			deleteFirst();
 			return;
@@ -100,40 +94,36 @@ public class DList<T extends Comparable<T>> extends List<T> {
 			count++;
 			crt = crt.next;
 		}
-		throw new IndexOutOfBoundsException();
+		throw new IndexOutOfBoundsException("<pos> is greater than list size (" + count + ")");
 	}
 
 	public void reverse() {
 		if (empty()) return;
-
-		if (empty())
-			return;
-		DListItem<T> crt = head;
-		DListItem<T> prev = null;
-		DListItem<T> next = null;
-		while (crt.next != null) {
-			next = crt.next;
-			crt.next = prev;
-			prev = crt;
-			crt = next;
+		
+		DListItem<T> crt = tail;
+		while (crt != null) {
+			DListItem<T> next = crt.next;
+			crt.next = crt.prev;
+			crt.prev = next;
+			crt = crt.next;
 		}
-		crt.next = prev;
-		head = crt;
+		crt = head;
+		head = tail;
+		tail = crt;
 	}
 
 	public T get(int pos) {
 		if (empty()) return null;
-		if (pos < 0) throw new IndexOutOfBoundsException();
+		if (pos < 0) throw new IndexOutOfBoundsException("<pos> is negative");
 
 		int count = 0;
 		DListItem<T> crt = head;
 		while (crt != null) {
-			if (count == pos)
-				return crt.data;
+			if (count == pos) return crt.data;
 			count++;
 			crt = crt.next;
 		}
-		throw new IndexOutOfBoundsException();
+		throw new IndexOutOfBoundsException("<pos> is greater than list size (" + count + ")");
 	}
 
 	public int size() {
