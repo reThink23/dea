@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class IdentifyBrackets {
-	private static String[] readLines(String filePath) throws IOException, FileNotFoundException {
+	protected static String[] readLines(String filePath) throws IOException, FileNotFoundException {
 		ArrayList<String> stringList = new ArrayList<String>();
 
 		BufferedReader bf = new BufferedReader(new FileReader(filePath));

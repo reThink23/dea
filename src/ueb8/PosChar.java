@@ -25,7 +25,8 @@ public class PosChar implements Comparable<PosChar> {
 			case ')': return '(';
 			case ']': return '[';
 			case '}': return '{';
-			default: throw new IllegalArgumentException("Unknown character: " + character);
+			default: return character;
+			// default: throw new IllegalArgumentException("Can't get matching character for " + character);
 		}
 	}
 
