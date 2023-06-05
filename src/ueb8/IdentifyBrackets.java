@@ -58,7 +58,10 @@ public class IdentifyBrackets {
 					}
 				}
 			}
+			if (!stack.isEmpty()) {
+				System.out.println("Error: Missing closing bracket for " + stack.top());
+				return;
+			}
 		}
-
 	}
 }
