@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 public class SList<T extends Comparable<T>> implements IList<T> {
 	private SListItem<T> head;
+	private int size;
 
 	public SList() {
 		head = null;
+		size = 0;
 	}
 
 	public SListItem<T> searchElement(T key) {
@@ -20,7 +22,7 @@ public class SList<T extends Comparable<T>> implements IList<T> {
 
 	public boolean empty() {return head == null;};
 	
-	public void clear() { head = null;}
+	public void clear() { head = null; size = 0;}
 	
 	public void append(T el) {
 		if (empty()) {head = new SListItem<T>(el, null); return;}
@@ -28,6 +30,7 @@ public class SList<T extends Comparable<T>> implements IList<T> {
 		while (crt != null) {
 			if (crt.next == null) {
 				crt.next = new SListItem<T>(el, null);
+				size++;
 				return;
 			}
 			crt = crt.next;
@@ -37,6 +40,7 @@ public class SList<T extends Comparable<T>> implements IList<T> {
 	public void prepend(T el) {
 		if (empty()) {head = new SListItem<T>(el, null); return;}
 		head = new SListItem<T>(el, head);
+		size++;
 	}
 	
 	public void deleteLast() {
@@ -49,11 +53,13 @@ public class SList<T extends Comparable<T>> implements IList<T> {
 			}
 			crt = crt.next;
 		}
+		size--;
 	}
 
 	public void deleteFirst() {
 		if (empty()) return;
 		head = head.next;
+		size--;
 	}
 	
 	public void insert(T el, int pos) {
@@ -61,6 +67,7 @@ public class SList<T extends Comparable<T>> implements IList<T> {
 		if (pos < 0) throw new IndexOutOfBoundsException("pos is negative");
 		if (pos == 0) {
 			prepend(el);
+			size++;
 			return;
 		}
 		int count = 0;
@@ -68,6 +75,7 @@ public class SList<T extends Comparable<T>> implements IList<T> {
 		while (crt.next != null) {
 			if (count == pos-1) {
 				crt.next = new SListItem<T>(el, crt.next);
+				size++;
 				return;
 			}
 			count++;
@@ -88,6 +96,7 @@ public class SList<T extends Comparable<T>> implements IList<T> {
 		while (crt.next != null) {
 			if (count == pos-1) {
 				crt.next = crt.next.next;
+				size--;
 				return;
 			}
 			count++;
@@ -125,13 +134,13 @@ public class SList<T extends Comparable<T>> implements IList<T> {
 	}
 	
 	public int size() {
-		if (empty()) return 0;
-		int size = 0;
-		SListItem<T> crt = head;
-		while (crt != null) {
-			size++;
-			crt = crt.next;
-		}
+		// if (empty()) return 0;
+		// int size = 0;
+		// SListItem<T> crt = head;
+		// while (crt != null) {
+		// 	size++;
+		// 	crt = crt.next;
+		// }
 		return size;
 	}
 	
