@@ -6,6 +6,16 @@
 	"configurations": [
 		{
 			"type": "java",
+			"name": "HeapSort",
+			"request": "launch",
+			"mainClass": "ueb9.HeapSort",
+			"projectName": "dea_6daa2cac",
+			"args": [
+				"${workspaceFolder}/testfiles/desc/desc_100000.txt"
+			]
+		},
+		{
+			"type": "java",
 			"name": "Current File",
 			"request": "launch",
 			"mainClass": "${file}"
@@ -44,7 +54,9 @@
 			"request": "launch",
 			"mainClass": "ueb8.IdentifyBrackets",
 			"projectName": "dea_6daa2cac",
-			"args": ["${workspaceFolder}/testfiles/ueb8/example2.txt"]
+			"args": [
+				"${workspaceFolder}/testfiles/ueb8/example2.txt"
+			]
 		}
 	]
 }
