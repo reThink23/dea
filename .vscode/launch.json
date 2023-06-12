@@ -11,7 +11,7 @@
 			"mainClass": "ueb9.HeapSort",
 			"projectName": "dea_6daa2cac",
 			"args": [
-				"${workspaceFolder}/testfiles/desc/desc_100000.txt"
+				"${workspaceFolder}/testfiles/desc/desc_900000.txt"
 			]
 		},
 		{
@@ -39,7 +39,10 @@
 			"name": "MergeSort",
 			"request": "launch",
 			"mainClass": "ueb4.MergeSort",
-			"projectName": "dea_6daa2cac"
+			"projectName": "dea_6daa2cac",
+			"args": [
+				"${workspaceFolder}/testfiles/desc/desc_900000.txt"
+			]
 		},
 		{
 			"type": "java",
