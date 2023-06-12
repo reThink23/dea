@@ -8,12 +8,6 @@ import java.util.ArrayList;
 
 public class HeapSort {
 
-	private static boolean hasLeftChild( int i, int len ) { return (i <= len/2-1); }
-	private static boolean hasRightChild( int i, int len ) {return (i <= (len+1)/2-2);}
-	private static int left( int i, int len ) { if (hasLeftChild(i, len)) {return 2*i+1;} else throw new IndexOutOfBoundsException("i is out of bounds"); }
-	private static int right( int i, int len ) { if (hasRightChild(i, len)) {return 2*i+2;} else throw new IndexOutOfBoundsException("i is out of bounds"); }
-	private static int parent( int i ) { return i > 0 ? (i-1)/2 : -1; }
-	
 	public static void sort(int[] A) {
 		createHeap(A);
 
@@ -27,22 +21,24 @@ public class HeapSort {
 
 	private static void heapify(int[] A, int k, int i) {
 		if (i < 0 || i >= k) return;
-		int len = A.length;
-		// if (!hasLeftChild(i, len) && !hasRightChild(i, len)) return;
-		if (!hasLeftChild(i, len)) return;
-		int child;
-		if (hasLeftChild(i, len) && !hasRightChild(i, len)) { child = left(i,len); }
-		if (hasRightChild(i, len) && A[left(i, len)] > A[right(i, len)]) { 
-			child = left(i, len);
-		} else {
-			child = right(i, len); 
-		}
-		if (child != -1 && A[child] > A[i]) {
-			int tmp = A[child];
-			A[child] = A[i];
-			A[i] = tmp;
-			heapify(A, k, child);
-		}
+		
+		int largest = i;
+        int l = 2 * i + 1;
+        int r = 2 * i + 2;
+
+        if (l < k && A[l] > A[largest])
+            largest = l;
+
+        if (r < k && A[r] > A[largest])
+            largest = r;
+
+        if (largest != i) {
+            int swap = A[i];
+            A[i] = A[largest];
+            A[largest] = swap;
+
+            heapify(A, k, largest);
+        }
 	}
 
 	private static void createHeap(int[] A) {
@@ -84,17 +80,16 @@ public class HeapSort {
 			A[i] = Integer.parseInt(lines[i]);
 		}
 
-		long start = System.currentTimeMillis();
+		// long start = System.currentTimeMillis();
 		sort(A);
-		long end = System.currentTimeMillis();
-		long diff = end - start;
-		System.out.println("Time: " + diff);
-		// System.out.println("[" + A[0]+ ", ..., "+ A[A.length/2-1] +", ..., " + A[A.length-1]+"]");
+		// long end = System.currentTimeMillis();
+		// long diff = end - start;
+		// System.out.println("Time: " + diff);
 
 
-		// for (int a : A) {
-		// 	System.out.println(a);
-		// }
+		for (int a : A) {
+			System.out.println(a);
+		}
 	}
 	
 }
