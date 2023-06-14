@@ -6,6 +6,17 @@
 	"configurations": [
 		{
 			"type": "java",
+			"name": "QuickSort",
+			"request": "launch",
+			"mainClass": "ueb10.QuickSort",
+			"projectName": "dea_6daa2cac",
+			"args": [
+				"${workspaceFolder}/testfiles/desc/desc_10.txt",
+				"random"
+			]
+		},
+		{
+			"type": "java",
 			"name": "HeapSort",
 			"request": "launch",
 			"mainClass": "ueb9.HeapSort",
