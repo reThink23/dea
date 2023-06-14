@@ -11,8 +11,8 @@
 			"mainClass": "ueb10.QuickSort",
 			"projectName": "dea_6daa2cac",
 			"args": [
-				"${workspaceFolder}/testfiles/desc/desc_10.txt",
-				"random"
+				"${workspaceFolder}/testfiles/desc/desc_1000.txt",
+				"median3"
 			]
 		},
 		{

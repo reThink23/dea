@@ -35,16 +35,19 @@ public class QuickSort {
 	}
 
 	private static int partition(int[] A, int l, int r, Strategy strat) {
-		int p = new Random(r).nextInt(r-l+1)+l;
+		int p = random(l, r, null);
 		switch (strat) {
 			case FIRST:
 				p = l;
 				break;
 			case RANDOM:
-				p = new Random().nextInt(r-l+1)+l;
+				p = random(l, r, null);
 				break;
 			case MEDIAN3:
-				p = (new Random(p).nextInt(r-l+1)+l) + (new Random(p).nextInt(r-l+1)+l) + (new Random(p).nextInt(r-l+1)+l) / 3;
+				p = (random(l, r, p) + random(l, r, p) + random(l, r, p)) / 3;
+				break;
+			default:
+				p = random(l, r, null);
 				break;
 		}
 		int x = A[p];
@@ -61,9 +64,18 @@ public class QuickSort {
 	}
 
 	private static void swap(int[] A, int a, int b) {
-		int tmp = a;
+		int tmp = A[a];
 		A[a] = A[b];
 		A[b] = tmp;
+	}
+
+	private static int random(int min, int max, Integer seed) {
+		if (min > max) throw new IllegalArgumentException("min must be smaller than max");
+		if (min == max) return min;
+		if (seed != null)
+			return new Random(seed).nextInt(max-min+1)+min;
+		else
+			return new Random().nextInt(max-min+1)+min;
 	}
 
 	public static String[] readLines(String filePath) throws IOException, FileNotFoundException {
@@ -88,10 +100,10 @@ public class QuickSort {
 			System.out.println("Usage: java QuickSort <filename> <strategy>"); 
 			System.exit(1);
 		}
+
 		String strat = args[1];
-
-
 		String[] lines = readLines(args[0]);
+
 		if (lines.length == 0)
 			throw new Exception("File " + args[0] + " doesn't contain anything to read");
 
@@ -102,16 +114,17 @@ public class QuickSort {
 			A[i] = Integer.parseInt(lines[i]);
 		}
 
-		// long start = System.currentTimeMillis();
+		long start = System.currentTimeMillis();
 		sort(A, strat);
-		// long end = System.currentTimeMillis();
-		// long diff = end - start;
-		// System.out.println("Time: " + diff);
+		long end = System.currentTimeMillis();
+		long diff = end - start;
+		System.out.println("Time: " + diff);
 
 
-		for (int a : A) {
-			System.out.println(a);
-		}
+		// for (int a : A) {
+		// 	System.out.println(a);
+		// 	// System.out.print(a+" ");
+		// }
 	}
 
 }
