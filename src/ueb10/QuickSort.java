@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class QuickSort {
-	enum Strategy  { RANDOM, MEDIAN3, FIRST
-	}
+	enum Strategy { RANDOM, MEDIAN3, FIRST }
 
 	public static void sort(int[] A, String strategy) {
 		Strategy mode = Strategy.RANDOM;
@@ -29,12 +28,26 @@ public class QuickSort {
 
 	private static void qsort(int[] A, int l, int r, Strategy strat) {
 		if (l >= r) return;
-		int q = partition(A,l,r, strat);
+		int q = partition(A,l,r, getPivotIndex(A, l, r, strat));
 		qsort(A, l, q-1, strat);
 		qsort(A, q+1, r, strat);
 	}
 
-	private static int partition(int[] A, int l, int r, Strategy strat) {
+	private static int partition(int[] A, int l, int r, int p) {
+		int x = A[p];
+		swap(A, p, r);
+		int i = l-1;
+		for (int j = l; j < r; j++) {
+			if (A[j] <= x) {
+				i++;
+				swap(A, i, j);
+			}
+		}
+		swap(A, i+1, r);
+		return i+1;
+	}
+
+	private static int getPivotIndex(int[] A, int l, int r, Strategy strat) {
 		int p = random(l, r, null);
 		switch (strat) {
 			case FIRST:
@@ -50,17 +63,7 @@ public class QuickSort {
 				p = random(l, r, null);
 				break;
 		}
-		int x = A[p];
-		swap(A, p, r);
-		int i = l-1;
-		for (int j = l; j < r; j++) {
-			if (A[j] <= x) {
-				i++;
-				swap(A, i, j);
-			}
-		}
-		swap(A, i+1, r);
-		return i+1;
+		return p;
 	}
 
 	private static void swap(int[] A, int a, int b) {
@@ -100,10 +103,13 @@ public class QuickSort {
 			System.out.println("Usage: java QuickSort <filename> <strategy>"); 
 			System.exit(1);
 		}
-
 		String strat = args[1];
-		String[] lines = readLines(args[0]);
+		if (!strat.equals("random") && !strat.equals("median3") && !strat.equals("first")) {
+			System.out.println("Strategy must be one of: random, median3, first");
+			System.exit(1);
+		}
 
+		String[] lines = readLines(args[0]);
 		if (lines.length == 0)
 			throw new Exception("File " + args[0] + " doesn't contain anything to read");
 
@@ -122,8 +128,8 @@ public class QuickSort {
 
 
 		// for (int a : A) {
-		// 	System.out.println(a);
-		// 	// System.out.print(a+" ");
+		// 	// System.out.println(a);
+		// 	System.out.print(a+" ");
 		// }
 	}
 
