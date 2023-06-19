@@ -74,7 +74,7 @@ public class QuickSort {
 
 	// method to get a median of three elements in A
 	private static int median3(int[] A, int l, int r) {
-		if (r-l < 3) return l;
+		if (r-l < 2) return l;
 
 		int i1 = random(l, r);
 		int i2 = random(l, r);
