@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class QuickSort {
-	enum Strategy { RANDOM, MEDIAN3, FIRST }
+	enum Strategy { RANDOM, MEDIAN3, FIRST, AVERAGE3 }
 
 	public static void sort(int[] A, String strategy) {
 		Strategy mode = Strategy.RANDOM;
-		switch (strategy) {
+		switch (strategy.toLowerCase()) {
 			case "random":
 				mode = Strategy.RANDOM;
 				break;
@@ -21,6 +21,9 @@ public class QuickSort {
 				break;
 			case "first":
 				mode = Strategy.FIRST;
+				break;
+			case "average3":
+				mode = Strategy.AVERAGE3;
 				break;
 		}
 		qsort(A, 0, A.length-1, mode);
@@ -48,22 +51,52 @@ public class QuickSort {
 	}
 
 	private static int getPivotIndex(int[] A, int l, int r, Strategy strat) {
-		int p = random(l, r, null);
+		int p = random(l, r);
 		switch (strat) {
 			case FIRST:
 				p = l;
 				break;
 			case RANDOM:
-				p = random(l, r, null);
+				p = random(l, r);
 				break;
 			case MEDIAN3:
-				p = (random(l, r, p) + random(l, r, p) + random(l, r, p)) / 3;
+				p = median3(A, l, r);
+				break;
+			case AVERAGE3:
+				p = (random(l, r) + random(l, r) + random(l, r)) / 3;
 				break;
 			default:
-				p = random(l, r, null);
+				p = random(l, r);
 				break;
 		}
 		return p;
+	}
+
+	// method to get a median of three elements in A
+	private static int median3(int[] A, int l, int r) {
+		if (r-l < 3) return l;
+
+		int i1 = random(l, r);
+		int i2 = random(l, r);
+		int i3 = random(l, r);
+		
+        while ((i2 == i1 || i3 == i1 || i3 == i2)) {
+			i2 = random(l, r);
+			i3 = random(l, r);
+        }
+
+        int v1 = A[i1];
+        int v2 = A[i2];
+        int v3 = A[i3];
+
+        int m = i1;
+        if ((v2 >= v1 && v2 <= v3) || (v2 >= v3 && v2 <= v1)) {
+            m = i2;
+        } else if ((v3 >= v1 && v3 <= v2) || (v3 >= v2 && v3 <= v1)) {
+            m = i3;
+        }
+
+        return m;
 	}
 
 	private static void swap(int[] A, int a, int b) {
@@ -72,13 +105,10 @@ public class QuickSort {
 		A[b] = tmp;
 	}
 
-	private static int random(int min, int max, Integer seed) {
+	private static int random(int min, int max) {
 		if (min > max) throw new IllegalArgumentException("min must be smaller than max");
 		if (min == max) return min;
-		if (seed != null)
-			return new Random(seed).nextInt(max-min+1)+min;
-		else
-			return new Random().nextInt(max-min+1)+min;
+		return new Random().nextInt(max-min+1)+min;
 	}
 
 	public static String[] readLines(String filePath) throws IOException, FileNotFoundException {
@@ -104,8 +134,8 @@ public class QuickSort {
 			System.exit(1);
 		}
 		String strat = args[1];
-		if (!strat.equals("random") && !strat.equals("median3") && !strat.equals("first")) {
-			System.out.println("Strategy must be one of: random, median3, first");
+		if (!strat.equals("random") && !strat.equals("median3") && !strat.equals("first") && !strat.equals("average3")) {
+			System.out.println("Strategy must be one of: random, median3, first, average3");
 			System.exit(1);
 		}
 
@@ -127,10 +157,10 @@ public class QuickSort {
 		System.out.println("Time: " + diff);
 
 
-		// for (int a : A) {
-		// 	// System.out.println(a);
-		// 	System.out.print(a+" ");
-		// }
+		for (int a : A) {
+			// System.out.println(a);
+			System.out.print(a+" ");
+		}
 	}
 
 }
