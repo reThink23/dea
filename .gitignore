@@ -1,4 +1,4 @@
-testfiles/
+testfiles/desc/*.txt
 
 # Compiled class file
 *.class
