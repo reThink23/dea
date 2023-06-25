@@ -2,8 +2,18 @@
 	// Use IntelliSense to learn about possible attributes.
 	// Hover to view descriptions of existing attributes.
 	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+
+	// "args": [ "${workspaceFolder}/testfiles/desc/desc_10.txt" ]
 	"version": "0.2.0",
 	"configurations": [
+		{
+			"type": "java",
+			"name": "RadixSort",
+			"request": "launch",
+			"mainClass": "ueb11.RadixSort",
+			"projectName": "dea_6daa2cac",
+			"args": [ "${workspaceFolder}/testfiles/desc/desc_100.txt" ]
+		},
 		{
 			"type": "java",
 			"name": "QuickSort",
