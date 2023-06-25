@@ -8,20 +8,11 @@
 	"configurations": [
 		{
 			"type": "java",
-			"name": "Test",
-			"request": "launch",
-			"mainClass": "Test",
-			"projectName": "dea_6daa2cac"
-		},
-		{
-			"type": "java",
 			"name": "RadixSort",
 			"request": "launch",
 			"mainClass": "ueb11.RadixSort",
 			"projectName": "dea_6daa2cac",
-			"args": [
-				"${workspaceFolder}/testfiles/desc/desc_100000.txt"
-			]
+			"args": [ "${workspaceFolder}/testfiles/desc/desc_100.txt" ]
 		},
 		{
 			"type": "java",

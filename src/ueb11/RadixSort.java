@@ -12,7 +12,7 @@ public class RadixSort {
 	
 	public RadixSort(int[] A) {
 		this.A = A;
-	}                                                               
+	}
 
 	public int[] sort() {
 		// int[] queue = new int[A.length];
@@ -30,6 +30,27 @@ public class RadixSort {
 			A = flatten(bucket);
 		} 
 		return A;
+		// int lenMax = maxLength(A);
+
+		// int[][] buckets = new int[lenMax][10];
+		// for (int i = 0; i < A.length; i++) {
+		// 	int len = getIntLength(A[i]);
+		// 	buckets[len] = add(buckets[len], A[i]);
+		// }
+		// A = flatten(buckets);
+
+
+		// int[][] buckets = new int[2][0];
+		// for (int i = 0; i < buckets.length; i++) {
+		// 	for (int j = 0; j < buckets[i].length; j++) {
+		// 		buckets[i][j] = j;
+		// 	}
+		// }
+		// for (int i = 0; i < A.length; i++) {
+		// 	int len = getIntLength(A[i]);
+		// 	buckets[A[i]] = add(buckets[A[i]], i);
+		// }
+		// A = flatten(buckets);
 	}
 
 	
@@ -49,12 +70,12 @@ public class RadixSort {
 	}
 
 
-	private void addToBucket(int bucketIdx, int val) {
-		int[] b = bucket[bucketIdx];
+	private void addToBucket(int idx, int val) {
+		int[] b = bucket[idx];
 		int[] arrB = new int[b.length+1];
 		System.arraycopy(b, 0, arrB, 0, b.length);
 		arrB[b.length] = val;
-		bucket[bucketIdx] = arrB;
+		bucket[idx] = arrB;
 	}
 
 	private int pop() {
@@ -88,8 +109,8 @@ public class RadixSort {
 		return arrRes;
 	}
 
-	private static int getBitAt(int num, int idx) {
-		return (num >> idx) & 1;
+	private static int getBitAt(int a, int i) {
+		return (a >> i) & 1;
 		// return (a << i) & 1;
 	}
 	
@@ -140,9 +161,9 @@ public class RadixSort {
 		System.out.println("Time: " + diff);
 
 
-		// for (int a : A) {
-		// 	System.out.println(a);
-		// 	// System.out.print(a+" ");
-		// }
+		for (int a : A) {
+			System.out.println(a);
+			// System.out.print(a+" ");
+		}
 	}
 }
