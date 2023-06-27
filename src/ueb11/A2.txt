@@ -1,0 +1,6 @@
+Laufzeitmessung:
+Da der Algorithmus bereits bei n=1000 bereits 5000ms braucht konnte ich die Laufzeit erst recht nicht für hohe n machen.
+Da aber der Algorithmus eine Laufzeit von O(k(n+N)) benötigt, dürfte das eigentlich kein Problem darstellen, 
+d.h. das bei der Implementierung sehr viel Laufzeit eingebüßt wurde. Meine Vermutung ist die übermäßige Nutzung 
+von System.arraycopy die ja jeweils durch das gesamte Array laufen muss, und damit n-Mal durchläuft.
+Mit einem Profiler könnte man diese Stellen rausfinden und ausmerzen.

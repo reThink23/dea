@@ -6,11 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class RadixSort {
+public class RadixSortWithArrayList {
 	private int[] A;
-	int[][] bucket = new int[2][0];
+	@SuppressWarnings("unchecked")
+	ArrayList<Integer>[] bucket = (ArrayList<Integer>[]) new ArrayList[2];
 	
-	public RadixSort(int[] A) {
+	public RadixSortWithArrayList(int[] A) {
 		this.A = A;
 	}
 
@@ -25,9 +26,9 @@ public class RadixSort {
 			while (A.length > 0) {
 				int num = pop();
 				int idx = getBitAt(num, r);
-				addToBucket(idx, num);
+				bucket[idx].add(num);
 			}	
-			A = flatten(bucket);
+			// A = flatten(bucket);
 		} 
 		return A;
 		// int lenMax = maxLength(A);
@@ -70,13 +71,6 @@ public class RadixSort {
 	}
 
 
-	private void addToBucket(int idx, int val) {
-		int[] b = bucket[idx];
-		int[] arrB = new int[b.length+1];
-		System.arraycopy(b, 0, arrB, 0, b.length);
-		arrB[b.length] = val;
-		bucket[idx] = arrB;
-	}
 
 	private int pop() {
 		if (A.length == 0) return -1;
@@ -89,7 +83,7 @@ public class RadixSort {
 
 	private void clearBuckets() {
 		for (int i = 0; i < bucket.length; i++) {
-			bucket[i] = new int[0];
+			bucket[i].clear();
 		}
 	}
 
@@ -115,7 +109,7 @@ public class RadixSort {
 	}
 	
 	public static void sort(int[] A) {
-		RadixSort rSort = new RadixSort(A);
+		RadixSortWithArrayList rSort = new RadixSortWithArrayList(A);
 		int[] arr = rSort.sort();
 		System.arraycopy(arr, 0, A, 0, arr.length);
 	}

@@ -45,7 +45,7 @@ public class Test {
 					sum += time;
 					// System.out.println("Time: " + time + "ms");
 				}
-				System.out.println(padLeft(fileName.split("\\.")[0] + ": ", 12) + (sum / runs));
+				System.out.println(padLeft(fileName.split("\\.")[0] + ": ", 13) + (sum / runs));
 
 			} catch (Exception e) {
 				System.out.println("Error while reading file: " + fileName);
