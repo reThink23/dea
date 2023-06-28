@@ -8,6 +8,14 @@
 	"configurations": [
 		{
 			"type": "java",
+			"name": "RadixSortWithArrayList",
+			"request": "launch",
+			"mainClass": "ueb11.RadixSortWithArrayList",
+			"projectName": "dea_6daa2cac",
+			"args": [ "${workspaceFolder}/testfiles/desc/10000.txt" ]
+		},
+		{
+			"type": "java",
 			"name": "Test",
 			"request": "launch",
 			"mainClass": "Test",
