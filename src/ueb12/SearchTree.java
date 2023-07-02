@@ -85,7 +85,9 @@ public class SearchTree<KeyType extends Comparable<KeyType>, DataType> {
 
 	public void clear() { root = null; }
 
-	public int size(TreeNode<KeyType, DataType> startNode) {
+	public int size() { return size(root); }
+
+	private int size(TreeNode<KeyType, DataType> startNode) {
 		int counter = 0;
 
 		if (startNode.isLeaf()) return counter;
@@ -96,7 +98,9 @@ public class SearchTree<KeyType extends Comparable<KeyType>, DataType> {
 		return counter + size(startNode.right);
 	}
 
-	public String toString(TreeNode<KeyType, DataType> startNode) {
+	public String toString() { return toString(root); }
+
+	private String toString(TreeNode<KeyType, DataType> startNode) {
 		String output = "";
 
 		if (startNode.isLeaf()) return output;
