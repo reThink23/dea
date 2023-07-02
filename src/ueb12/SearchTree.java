@@ -103,6 +103,7 @@ public class SearchTree<KeyType extends Comparable<KeyType>, DataType> {
 	private String toString(TreeNode<KeyType, DataType> startNode) {
 		String output = "";
 
+		if (startNode == null) return output;
 		if (startNode.isLeaf()) return output;
 
 		TreeNode<KeyType, DataType> node = startNode;

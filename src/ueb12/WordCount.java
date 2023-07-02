@@ -25,18 +25,26 @@ public class WordCount {
 	}
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		String[] lines = readLines("/testfiles/ueb12/De_Odyssee.txt");
+		// String fileName = getFileNameToReadFromUserInput();
+		// FileInputStream is = new FileInputStream(fileName);
+		// InputStreamReader isr = new InputStreamReader(is, getCorrectCharsetToApply());
+		// BufferedReader buffReader = new BufferedReader(isr);
+
+		String[] lines = readLines("C:/Users/joela/Github/dea/testfiles/ueb12/De_Odyssee.txt");
 
 		SearchTree<String, Integer> tree = new SearchTree<>();
 
 		for (String line : lines) {
-			String[] words = line.split("[.,:;!? ]+");
+			String[] words = line.split("[.,:;!?\t ]+");
 
 			for (String word : words) {
-				Integer val = tree.isMember(line);
-				tree.insert((val != null) ? val : 1, word);
+				if (word.equals("")) continue;
+				Integer val = tree.isMember(word);
+				tree.insert((val != null) ? val+1 : 1, word);
 			}
 		}
+
+		System.out.println(tree.toString());
 	}
 
 }
