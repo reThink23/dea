@@ -54,20 +54,20 @@ public class RadixSort {
 	}
 
 	
-	private static int getIntLength(int a) {
-		return (a == 0) ? 1 : (int)(Math.log10(a)+1);
-	}
+	// private static int getIntLength(int a) {
+	// 	return (a == 0) ? 1 : (int)(Math.log10(a)+1);
+	// }
 
-	private static int maxLength(int[] A) {
-		int max = getIntLength(A[0]);
-		for (int i = 1; i < A.length; i++) {
-			int crtLen = getIntLength(A[i]);
-			if (crtLen > max) {
-				max = crtLen;
-			}
-		}
-		return max;
-	}
+	// private static int maxLength(int[] A) {
+	// 	int max = getIntLength(A[0]);
+	// 	for (int i = 1; i < A.length; i++) {
+	// 		int crtLen = getIntLength(A[i]);
+	// 		if (crtLen > max) {
+	// 			max = crtLen;
+	// 		}
+	// 	}
+	// 	return max;
+	// }
 
 
 	private void addToBucket(int idx, int val) {
