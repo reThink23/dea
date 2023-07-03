@@ -27,7 +27,8 @@ public class WordCount {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 
-		String[] lines = readLines("C:/Users/joela/Github/dea/testfiles/ueb12/De_Odyssee.txt");
+		// String[] lines = readLines("C:/Users/joela/Github/dea/testfiles/ueb12/De_Odyssee.txt");
+		String[] lines = readLines("C:/Github/dea/testfiles/ueb12/De_Odyssee.txt");
 
 		SearchTree<String, Integer> tree = new SearchTree<>();
 
