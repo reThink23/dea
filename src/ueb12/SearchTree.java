@@ -63,7 +63,7 @@ public class SearchTree<KeyType extends Comparable<KeyType>, DataType> {
 				if (node == parent.right) { parent.right = node.right; } 
 			}
 		} else if (node.has2Children()) {
-			TreeNode<KeyType, DataType> successor = node.getSuccessor();
+			TreeNode<KeyType, DataType> successor = getSuccessor(node);
 			node.key = successor.key;
 			node.data = successor.data;
 			successor = null;
@@ -71,8 +71,19 @@ public class SearchTree<KeyType extends Comparable<KeyType>, DataType> {
 		return true;
 	}
 
+	private TreeNode<KeyType, DataType> getSuccessor(TreeNode<KeyType, DataType> startNode) {
+		return minimum(startNode.right);
+	}
+
 	public TreeNode<KeyType, DataType> minimum() {
-		TreeNode<KeyType, DataType> node = root;
+		// TreeNode<KeyType, DataType> node = root;
+		// while (node.left != null) { node = node.left; }
+		// return node;
+		return minimum(root);
+	}
+
+	private TreeNode<KeyType, DataType> minimum(TreeNode<KeyType, DataType> startNode) {
+		TreeNode<KeyType, DataType> node = startNode;
 		while (node.left != null) { node = node.left; }
 		return node;
 	}
@@ -88,28 +99,37 @@ public class SearchTree<KeyType extends Comparable<KeyType>, DataType> {
 	public int size() { return size(root); }
 
 	private int size(TreeNode<KeyType, DataType> startNode) {
-		int counter = 0;
+		if (startNode == null) return 0;
+		return 1 + size(startNode.left) + size(startNode.right);
+	}
 
-		if (startNode.isLeaf()) return counter;
+	public int depth() { return depth(root); }
 
-		TreeNode<KeyType, DataType> node = startNode;
-		while (node.left != null) { node = node.left; counter++; }
-
-		return counter + size(startNode.right);
+	private int depth(TreeNode<KeyType, DataType> node) {
+		if (node == null) return 0;
+        else {
+            int leftDepth = depth(node.left);
+            int rightDepth = depth(node.right);
+ 
+            if (leftDepth > rightDepth) { return (leftDepth + 1); }
+            else { return (rightDepth + 1); }
+                
+        }
 	}
 
 	public String toString() { return toString(root); }
 
-	private String toString(TreeNode<KeyType, DataType> startNode) {
+	private String toString(TreeNode<KeyType, DataType> node) {
 		String output = "";
 
-		if (startNode == null) return output;
-		if (startNode.isLeaf()) return output;
+		if (node == null) return "";
 
-		TreeNode<KeyType, DataType> node = startNode;
-		while (node.left != null) { node = node.left; output += "\n" + node.toString(); }
+		output += node.toString() + "\n";
+		
+		output += toString(node.left);
+		output += toString(node.right);
 
-		return output + toString(startNode.right);
+		return output;
 	}
 
 }

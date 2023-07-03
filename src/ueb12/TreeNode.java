@@ -21,13 +21,6 @@ public class TreeNode<KeyType extends Comparable<KeyType>, DataType> {
 		return null;
 	}
 
-	public TreeNode<KeyType, DataType> getSuccessor() {
-		if (isLeaf()) return null;
-		if (hasSoleChild()) return getSoleChild();
-		if (left.key.compareTo(right.key) >= 0) return left;
-		else return right;
-	}
-
 	public boolean isLeftChild() {
 		return this == parent.left;
 	}
