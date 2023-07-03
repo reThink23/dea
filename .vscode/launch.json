@@ -11,6 +11,13 @@
 			"name": "WordCount",
 			"request": "launch",
 			"mainClass": "ueb12.WordCount",
+			"projectName": "dea_6daa2cac"
+		},
+		{
+			"type": "java",
+			"name": "WordCount",
+			"request": "launch",
+			"mainClass": "ueb12.WordCount",
 			"projectName": "dea_fe683f0d"
 		},
 		{

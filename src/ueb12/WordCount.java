@@ -30,12 +30,13 @@ public class WordCount {
 		// InputStreamReader isr = new InputStreamReader(is, getCorrectCharsetToApply());
 		// BufferedReader buffReader = new BufferedReader(isr);
 
-		String[] lines = readLines("C:/Users/joela/Github/dea/testfiles/ueb12/De_Odyssee.txt");
+		// String[] lines = readLines("C:/Users/joela/Github/dea/testfiles/ueb12/De_Odyssee.txt");
+		String[] lines = readLines("C:/Github/dea/testfiles/ueb12/De_Odyssee.txt");
 
 		SearchTree<String, Integer> tree = new SearchTree<>();
 
 		for (String line : lines) {
-			String[] words = line.split("[.,:;!?\t ]+");
+			String[] words = line.split("[.,:;!?(*/\\-)\t ]+");
 
 			for (String word : words) {
 				if (word.equals("")) continue;
