@@ -60,12 +60,14 @@ public class WordCount {
 			}
 		}
 
-		System.out.println("isMember: " + tree.isMember("Odysseus"));
-		System.out.println("Minimum: " + tree.minimum());
-		System.out.println("Maximum: " + tree.maximum());
-		System.out.println("Size: " + tree.size());
-		System.out.println("Depth: " + tree.depth());
-		System.out.println(tree.toString());
+
+
+		// System.out.println("isMember: " + tree.isMember("Odysseus"));
+		// System.out.println("Minimum: " + tree.minimum());
+		// System.out.println("Maximum: " + tree.maximum());
+		// System.out.println("Size: " + tree.size());
+		// System.out.println("Depth: " + tree.depth());
+		// System.out.println(tree.toString());
 
 	}
 

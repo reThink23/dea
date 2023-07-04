@@ -132,4 +132,10 @@ public class SearchTree<KeyType extends Comparable<KeyType>, DataType> {
 		return output;
 	}
 
+	public TreeNode<KeyType, DataType> top(int amount) {
+		// get the words with the most occurrences in the text by adding them to a PriorityQueue and traversing through the tree
+		// if the current node has more occurrences than the smallest node in the queue, remove the smallest node and add the current node
+		return null;
+	}
+
 }
