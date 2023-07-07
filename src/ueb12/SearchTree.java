@@ -1,7 +1,9 @@
 package ueb12;
 
+import java.util.ArrayList;
+
 public class SearchTree<KeyType extends Comparable<KeyType>, DataType> {
-	private TreeNode<KeyType, DataType> root;
+	public TreeNode<KeyType, DataType> root;
 
 	public TreeNode<KeyType, DataType> search(KeyType k ){
 		TreeNode<KeyType, DataType> crtNode = root;
@@ -132,10 +134,26 @@ public class SearchTree<KeyType extends Comparable<KeyType>, DataType> {
 		return output;
 	}
 
-	public TreeNode<KeyType, DataType> top(int amount) {
+	private TreeNode<KeyType,DataType> getMin(ArrayList<TreeNode<KeyType, DataType>> list) {
+		TreeNode<KeyType,DataType> min = list.get(0);
+		for (int i = 1; i < list.size(); i++) { if (list.get(i).key.compareTo(min.key) < 0) { min = list.get(i); } }
+		return min;
+	}
+
+	public ArrayList<TreeNode<KeyType,DataType>> top(int amount, ArrayList<TreeNode<KeyType,DataType>> list, TreeNode<KeyType,DataType> startNode) {
+		if (startNode == null) return list;
+
+		if (amount > list.size()) { list.add(startNode); }
+		else { 
+			TreeNode<KeyType,DataType> min = getMin(list);
+			System.out.println(min.key + " vs. " + startNode.key);
+			if (startNode.key.compareTo(min.key) > 0) { list.remove(min); list.add(startNode); }
+		}
+		if (startNode.left != null) { top(amount, list, startNode.left); }
+		if (startNode.right != null) { top(amount, list, startNode.right); }
 		// get the words with the most occurrences in the text by adding them to a PriorityQueue and traversing through the tree
 		// if the current node has more occurrences than the smallest node in the queue, remove the smallest node and add the current node
-		return null;
+		return list;
 	}
 
 }

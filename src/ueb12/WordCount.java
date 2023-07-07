@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+
 public class WordCount {
 	public static String[] readLines(String filePath) throws IOException, FileNotFoundException {
 		ArrayList<String> stringList = new ArrayList<String>();
@@ -27,8 +28,8 @@ public class WordCount {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 
-		// String[] lines = readLines("C:/Users/joela/Github/dea/testfiles/ueb12/De_Odyssee.txt");
-		String[] lines = readLines("C:/Github/dea/testfiles/ueb12/De_Odyssee.txt");
+		String[] lines = readLines("C:/Users/joela/Github/dea/testfiles/ueb12/De_Odyssee.txt");
+		// String[] lines = readLines("C:/Github/dea/testfiles/ueb12/De_Odyssee.txt");
 
 		SearchTree<String, Integer> tree = new SearchTree<>();
 
@@ -60,15 +61,21 @@ public class WordCount {
 			}
 		}
 
-
-
-		// System.out.println("isMember: " + tree.isMember("Odysseus"));
-		// System.out.println("Minimum: " + tree.minimum());
-		// System.out.println("Maximum: " + tree.maximum());
-		// System.out.println("Size: " + tree.size());
-		// System.out.println("Depth: " + tree.depth());
+		
+		
+		System.out.println("isMember: " + tree.isMember("Odysseus"));
+		System.out.println("Minimum: " + tree.minimum());
+		System.out.println("Maximum: " + tree.maximum());
+		System.out.println("Size: " + tree.size());
+		System.out.println("Depth: " + tree.depth());
 		// System.out.println(tree.toString());
-
+		
+		ArrayList<TreeNode<String,Integer>> top = new ArrayList<TreeNode<String,Integer>>();
+		top.add(tree.root);
+		top = tree.top(10, top, tree.root);
+		for (TreeNode<String,Integer> treeNode : top) {
+			System.out.println(treeNode.key + ": " + treeNode.data);
+		}
 	}
 
 }
