@@ -7,18 +7,16 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-import ueb12.SearchTree;
-
 public class HashMap<Key, Value> {
 	private Entry<Key, Value>[] hashTable;
 	private int m = 997;
 
 	public HashMap() {
-		hashTable = new Entry[m];
+		this.hashTable = new Entry[m];
 	}
 
 	private int hash(Key key) {
-		return key.hashCode() % m;
+		return Math.abs(key.hashCode()) % m;
 	}
 
 	// private Entry<Key, Value> search(int idx, Key key) {
@@ -40,7 +38,9 @@ public class HashMap<Key, Value> {
 			hashTable[idx] = e;
 		} else {
 			Entry<Key, Value> tmp = hashTable[idx];
+			if (tmp.key.equals(key)) { tmp.value = value; return; }
 			while (tmp.next != null) {
+				if (tmp.key.equals(key)) { tmp.value = value; return; }
 				tmp = tmp.next;
 			}
 			tmp.next = e;
@@ -104,8 +104,8 @@ public class HashMap<Key, Value> {
 	}
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		String[] lines = readLines("C:/Users/joela/Github/dea/testfiles/ueb12/De_Odyssee.txt");
-		// String[] lines = readLines("C:/Github/dea/testfiles/ueb12/De_Odyssee.txt");
+		// String[] lines = readLines("C:/Users/joela/Github/dea/testfiles/ueb12/De_Odyssee.txt");
+		String[] lines = readLines("C:/Github/dea/testfiles/ueb12/De_Odyssee.txt");
 		
 		HashMap<String, Integer> occurences = new HashMap<>();
 
@@ -116,12 +116,27 @@ public class HashMap<Key, Value> {
 			for (String word : words) {
 				if (word.equals("")) continue;
 				Integer val = occurences.get(word);
-				if (val != null) {
-					// occurences.get(word).value += 1;
-				} else {
-					occurences.put(word, 1);
+				occurences.put(word, (val != null) ? val + 1 : 1);
+			}
+		}
+
+		ArrayList<Entry<String,Integer>> topTen = new ArrayList<>();
+		for (int i=0; i < 10; i++) {
+			Entry<String, Integer> max = null;
+			for (int j = 0; j < occurences.m; j++) {
+				for (Entry<String, Integer> e = occurences.hashTable[j]; e != null; e = e.next) {
+					if (max == null || e.value > max.value) {
+						max = e;
+					}
 				}
 			}
+			if (max == null) continue;
+			if (topTen.size() < 10) topTen.add(max);
+			occurences.delete(max.key);
+		}
+
+		for (Entry<String, Integer> e : topTen) {
+			System.out.println(e.key + ": " + e.value);
 		}
 		
 

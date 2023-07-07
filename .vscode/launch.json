@@ -8,6 +8,13 @@
 	"configurations": [
 		{
 			"type": "java",
+			"name": "HashMap",
+			"request": "launch",
+			"mainClass": "ueb13.HashMap",
+			"projectName": "dea_6daa2cac"
+		},
+		{
+			"type": "java",
 			"name": "WordCount",
 			"request": "launch",
 			"mainClass": "ueb12.WordCount",
