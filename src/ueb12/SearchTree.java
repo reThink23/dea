@@ -134,6 +134,18 @@ public class SearchTree<KeyType extends Comparable<KeyType>, DataType> {
 		return output;
 	}
 
+	/* needed to implement foreach method (lambda functions) */
+	public interface InnerFunc <KeyType extends Comparable<KeyType>, DataType> {
+		void function(TreeNode<KeyType,DataType> s);
+	}
+
+	public void forEach(TreeNode<KeyType,DataType> startNode, InnerFunc<KeyType,DataType> func ) {
+			if (startNode == null) return;
+			func.function(startNode);
+			forEach(startNode.left, func);
+			forEach(startNode.right, func);
+	}
+
 	private TreeNode<KeyType,DataType> getMin(ArrayList<TreeNode<KeyType, DataType>> list) {
 		TreeNode<KeyType,DataType> min = list.get(0);
 		for (int i = 1; i < list.size(); i++) { if (list.get(i).key.compareTo(min.key) < 0) { min = list.get(i); } }

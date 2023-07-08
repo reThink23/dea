@@ -76,6 +76,24 @@ public class WordCount {
 		for (TreeNode<String,Integer> treeNode : top) {
 			System.out.println(treeNode.key + ": " + treeNode.data);
 		}
+
+		ArrayList<TreeNode<String,Integer>> topTen = new ArrayList<>();
+		for (int i=0; i < 10; i++) {
+			TreeNode<String,Integer> max = null;
+			TreeNode<String,Integer> node = null;
+			TreeNode<String,Integer> startNode = tree.root;
+			while (startNode.left != null) {
+				node = startNode;
+				while (node.right != null) {
+					if (max == null || node.data > max.data) {
+						max = node;
+					}
+				}
+			}
+			if (max == null) continue;
+			if (topTen.size() < 10) topTen.add(max);
+			tree.remove(max.key);
+		}
 	}
 
 }

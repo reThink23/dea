@@ -11,6 +11,7 @@ public class HashMap<Key, Value> {
 	private Entry<Key, Value>[] hashTable;
 	private int m = 997;
 
+	@SuppressWarnings("unchecked") 
 	public HashMap() {
 		this.hashTable = new Entry[m];
 	}
