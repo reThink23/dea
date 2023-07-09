@@ -105,8 +105,8 @@ public class HashMap<Key, Value> {
 	}
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		// String[] lines = readLines("C:/Users/joela/Github/dea/testfiles/ueb12/De_Odyssee.txt");
-		String[] lines = readLines("C:/Github/dea/testfiles/ueb12/De_Odyssee.txt");
+		String[] lines = readLines("C:/Users/joela/Github/dea/testfiles/ueb12/De_Odyssee.txt");
+		// String[] lines = readLines("C:/Github/dea/testfiles/ueb12/De_Odyssee.txt");
 		
 		HashMap<String, Integer> occurences = new HashMap<>();
 

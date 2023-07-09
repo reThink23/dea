@@ -1,6 +1,5 @@
 package ueb12;
 
-import java.util.ArrayList;
 
 public class SearchTree<KeyType extends Comparable<KeyType>, DataType> {
 	public TreeNode<KeyType, DataType> root;
@@ -144,36 +143,6 @@ public class SearchTree<KeyType extends Comparable<KeyType>, DataType> {
 			func.function(startNode);
 			forEach(startNode.left, func);
 			forEach(startNode.right, func);
-	}
-
-	private int getMinIdx(ArrayList<TreeNode<KeyType, DataType>> list) {
-		int min = 0;
-		for (int i = 1; i < list.size(); i++) { if (list.get(i).key.compareTo(list.get(min).key) < 0) { min = i; } }
-		return min;
-	}
-
-	public ArrayList<TreeNode<KeyType,DataType>> top(int amount, TreeNode<KeyType,DataType> startNode) {
-		ArrayList<TreeNode<KeyType,DataType>> list = new ArrayList<>(amount+1);
-		if (startNode == null) return null;
-
-		forEach(startNode, node -> {
-			System.out.println(list.size());
-			if (list.size() < amount) { list.add(node); }
-			else { 
-				int min = getMinIdx(list);
-				if (node.key.compareTo(list.get(min).key) > 0) { 
-					TreeNode<KeyType,DataType> last =  list.remove(min); 
-					if (last != null) {
-						System.out.println(list); 
-						list.set(min, node);
-					}
-				}
-			}	
-		});
-
-		// get the words with the most occurrences in the text by adding them to a PriorityQueue and traversing through the tree
-		// if the current node has more occurrences than the smallest node in the queue, remove the smallest node and add the current node
-		return list;
 	}
 
 }
