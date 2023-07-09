@@ -28,8 +28,8 @@ public class WordCount {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 
-		String[] lines = readLines("C:/Users/joela/Github/dea/testfiles/ueb12/De_Odyssee.txt");
-		// String[] lines = readLines("C:/Github/dea/testfiles/ueb12/De_Odyssee.txt");
+		// String[] lines = readLines("C:/Users/joela/Github/dea/testfiles/ueb12/De_Odyssee.txt");
+		String[] lines = readLines("C:/Github/dea/testfiles/ueb12/De_Odyssee.txt");
 
 		SearchTree<String, Integer> tree = new SearchTree<>();
 
@@ -70,30 +70,29 @@ public class WordCount {
 		System.out.println("Depth: " + tree.depth());
 		// System.out.println(tree.toString());
 		
-		ArrayList<TreeNode<String,Integer>> top = new ArrayList<TreeNode<String,Integer>>();
-		top.add(tree.root);
-		top = tree.top(10, top, tree.root);
+		ArrayList<TreeNode<String,Integer>> top = tree.top(10, tree.root);
+
 		for (TreeNode<String,Integer> treeNode : top) {
 			System.out.println(treeNode.key + ": " + treeNode.data);
 		}
 
-		ArrayList<TreeNode<String,Integer>> topTen = new ArrayList<>();
-		for (int i=0; i < 10; i++) {
-			TreeNode<String,Integer> max = null;
-			TreeNode<String,Integer> node = null;
-			TreeNode<String,Integer> startNode = tree.root;
-			while (startNode.left != null) {
-				node = startNode;
-				while (node.right != null) {
-					if (max == null || node.data > max.data) {
-						max = node;
-					}
-				}
-			}
-			if (max == null) continue;
-			if (topTen.size() < 10) topTen.add(max);
-			tree.remove(max.key);
-		}
+		// ArrayList<TreeNode<String,Integer>> topTen = new ArrayList<>();
+		// for (int i=0; i < 10; i++) {
+		// 	TreeNode<String,Integer> max = null;
+		// 	TreeNode<String,Integer> node = null;
+		// 	TreeNode<String,Integer> startNode = tree.root;
+		// 	while (startNode.left != null) {
+		// 		node = startNode;
+		// 		while (node.right != null) {
+		// 			if (max == null || node.data > max.data) {
+		// 				max = node;
+		// 			}
+		// 		}
+		// 	}
+		// 	if (max == null) continue;
+		// 	if (topTen.size() < 10) topTen.add(max);
+		// 	tree.remove(max.key);
+		// }
 	}
 
 }

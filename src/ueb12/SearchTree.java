@@ -146,23 +146,31 @@ public class SearchTree<KeyType extends Comparable<KeyType>, DataType> {
 			forEach(startNode.right, func);
 	}
 
-	private TreeNode<KeyType,DataType> getMin(ArrayList<TreeNode<KeyType, DataType>> list) {
-		TreeNode<KeyType,DataType> min = list.get(0);
-		for (int i = 1; i < list.size(); i++) { if (list.get(i).key.compareTo(min.key) < 0) { min = list.get(i); } }
+	private int getMinIdx(ArrayList<TreeNode<KeyType, DataType>> list) {
+		int min = 0;
+		for (int i = 1; i < list.size(); i++) { if (list.get(i).key.compareTo(list.get(min).key) < 0) { min = i; } }
 		return min;
 	}
 
-	public ArrayList<TreeNode<KeyType,DataType>> top(int amount, ArrayList<TreeNode<KeyType,DataType>> list, TreeNode<KeyType,DataType> startNode) {
-		if (startNode == null) return list;
+	public ArrayList<TreeNode<KeyType,DataType>> top(int amount, TreeNode<KeyType,DataType> startNode) {
+		ArrayList<TreeNode<KeyType,DataType>> list = new ArrayList<>(amount+1);
+		if (startNode == null) return null;
 
-		if (amount > list.size()) { list.add(startNode); }
-		else { 
-			TreeNode<KeyType,DataType> min = getMin(list);
-			System.out.println(min.key + " vs. " + startNode.key);
-			if (startNode.key.compareTo(min.key) > 0) { list.remove(min); list.add(startNode); }
-		}
-		if (startNode.left != null) { top(amount, list, startNode.left); }
-		if (startNode.right != null) { top(amount, list, startNode.right); }
+		forEach(startNode, node -> {
+			System.out.println(list.size());
+			if (list.size() < amount) { list.add(node); }
+			else { 
+				int min = getMinIdx(list);
+				if (node.key.compareTo(list.get(min).key) > 0) { 
+					TreeNode<KeyType,DataType> last =  list.remove(min); 
+					if (last != null) {
+						System.out.println(list); 
+						list.set(min, node);
+					}
+				}
+			}	
+		});
+
 		// get the words with the most occurrences in the text by adding them to a PriorityQueue and traversing through the tree
 		// if the current node has more occurrences than the smallest node in the queue, remove the smallest node and add the current node
 		return list;
